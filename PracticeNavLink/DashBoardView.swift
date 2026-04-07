@@ -10,12 +10,33 @@ import SwiftUI
 struct DashBoardView: View {
     @Environment(WorkoutLibrary.self) var fullLibrary
     var body: some View {
-        NavigationStack{
-            VStack {
-//                ForEach(fullLibrary.library){WorkoutPlanCard(libraryy: <#T##Environment<WorkoutLibrary>#>)}
+
+        NavigationStack {
+            ScrollView {
+                VStack {
+                    ForEach(fullLibrary.library) { plan in
+                        NavigationLink(value: plan) {
+                            WorkoutPlanCard(onePlan: plan)
+                        }
+                        
+                    }
+                }
+                .padding()
+                .navigationTitle("Dashboard")
+                .navigationDestination(for: WorkoutPlan.self) { plan in
+                    WorkoutPlanDetailView(somePlan: plan)
+                }
+                .navigationDestination(for: Exercise.self) { someEx in
+                    if(someEx.requiresFormCorrection){ ActiveExerciseWithAssistance(someExercise: someEx)
+                    }
+                    else{
+                        ActiveExerciseView(someExercise: someEx)
+                    }
+                }
+                
             }
-            .padding()
         }
+
     }
 }
 

@@ -20,13 +20,16 @@ enum targetMuscleGroup: String {
     case core = "Core"
 }
 
-struct Exercise: Hashable {
+struct Exercise: Hashable, Identifiable {
+    var id = UUID()
     var name: String
     var targets: targetMuscleGroup
     var requiresFormCorrection: Bool
 }
 
-struct WorkoutPlan: Hashable {
+struct WorkoutPlan: Hashable, Identifiable {
+    
+    var id = UUID()
     var name: String
     var duration: Int
     var featuresExercise: [Exercise]

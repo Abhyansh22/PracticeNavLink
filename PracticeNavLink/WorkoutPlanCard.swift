@@ -8,26 +8,32 @@
 import SwiftUI
 
 struct WorkoutPlanCard: View {
-    @Environment(WorkoutLibrary.self) var libraryy
-//    var workoutPlann: WorkoutPlan? = libraryy.library.first
-    var workoutPlann: WorkoutPlan? {
-        libraryy.library.first
-    }
+    var onePlan: WorkoutPlan
     var body: some View {
         HStack{
-            Text(workoutPlann?.name ?? "Some Plan")
+            Text("\(onePlan.name)")
                 .font(.title3)
             Spacer()
-            Text("\(workoutPlann?.duration ?? 10) mins")
+            Text("\(onePlan.duration) mins")
             
         }
         .padding()
         .background(.secondary ,in: .rect(cornerRadius: 16))
-        .padding()
+        .padding(.horizontal, 10)
     }
 }
 
 #Preview {
-    WorkoutPlanCard()
-        .environment(WorkoutLibrary())
+    let somePlan = WorkoutPlan(
+        name: "Leg Day Demolition",
+        duration: 60,
+        featuresExercise: [
+            Exercise(name: "Barbell Squats", targets: .legs, requiresFormCorrection: true),
+            Exercise(name: "Romanian Deadlifts", targets: .legs, requiresFormCorrection: true),
+            Exercise(name: "Leg Extensions", targets: .legs, requiresFormCorrection: false),
+            Exercise(name: "Calf Raises", targets: .legs, requiresFormCorrection: false)
+        ]
+    )
+    WorkoutPlanCard(onePlan: somePlan)
+        //.environment(WorkoutLibrary())
 }

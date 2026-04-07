@@ -8,11 +8,49 @@
 import SwiftUI
 
 struct WorkoutPlanDetailView: View {
+    var somePlan: WorkoutPlan
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack(alignment: .leading){
+            Section {
+                WorkoutPlanCard(onePlan: somePlan)
+            } header: {
+                Text("Plan Info")
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal)
+            }
+            Section {
+                ForEach(somePlan.featuresExercise) { oneExercise in
+                    NavigationLink(value: oneExercise) {
+                        ExerciseCard(exercise: oneExercise)
+                    }
+                    
+                }
+            } header: {
+                Text("Featured Exercises")
+                    .font(.largeTitle)
+                    .fontWeight(.semibold)
+                    .padding(.horizontal)
+            }
+            
+            Spacer()
+
+
+        }
+        .navigationTitle(somePlan.name)
     }
 }
 
 #Preview {
-    WorkoutPlanDetailView()
+    let somePlan = WorkoutPlan(
+        name: "Leg Day Demolition",
+        duration: 60,
+        featuresExercise: [
+            Exercise(name: "Barbell Squats", targets: .legs, requiresFormCorrection: true),
+            Exercise(name: "Romanian Deadlifts", targets: .legs, requiresFormCorrection: true),
+            Exercise(name: "Leg Extensions", targets: .legs, requiresFormCorrection: false),
+            Exercise(name: "Calf Raises", targets: .legs, requiresFormCorrection: false)
+        ]
+    )
+    WorkoutPlanDetailView(somePlan: somePlan)
 }

@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct ExerciseCard: View {
+    var exercise: Exercise
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        HStack{
+            Text("\(exercise.name)")
+                .font(.title3)
+                .padding()
+            Spacer()
+            
+        }
+        .background(.secondary ,in: .rect(cornerRadius: 16))
+        .padding(.horizontal, 10)
     }
 }
 
 #Preview {
-    ExerciseCard()
+    let someExercise = Exercise(name: "Squats", targets: .legs, requiresFormCorrection: false)
+    ExerciseCard(exercise: someExercise)
 }

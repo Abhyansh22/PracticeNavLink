@@ -20,6 +20,7 @@ struct ActiveExerciseView: View {
                 startTimer()
             }
             .buttonStyle(.borderedProminent)
+//            NavigationLink(value: <#T##(Decodable & Encodable & Hashable)?#>, label: <#T##() -> View#>)
         }
         .navigationTitle(someExercise.name)
     }

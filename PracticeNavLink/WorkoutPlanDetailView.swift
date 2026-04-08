@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WorkoutPlanDetailView: View {
     var somePlan: WorkoutPlan
+    @State var currEx = 0
     var body: some View {
         VStack(){
             Section() {
@@ -40,16 +41,22 @@ struct WorkoutPlanDetailView: View {
 //                    .padding(.horizontal)
             }
             
-            Button("Start Workout") {
-                //
+            NavigationLink(value: somePlan.featuresExercise[currEx]) {
+                //RunningExercise(ongoingEx: $currEx, someExercise: <#T##Exercise#>)
+                Text(currEx==0 ? "Start Workout" : "Perform \(somePlan.featuresExercise[currEx].name)")
+                    .foregroundStyle(.black)
+                    .padding()
+                    .background(.gray, in: .rect(cornerRadius: 8))
             }
-            .buttonStyle(.borderedProminent)
             
             Spacer()
 
 
         }
         .navigationTitle(somePlan.name)
+        .navigationDestination(for: Exercise.self) { exercise in
+            RunningExercise(ongoingEx: $currEx, someExercise: exercise)
+        }
     }
 }
 

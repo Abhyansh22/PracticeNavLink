@@ -25,13 +25,13 @@ struct DashBoardView: View {
                 .navigationDestination(for: WorkoutPlan.self) { plan in
                     WorkoutPlanDetailView(somePlan: plan)
                 }
-                .navigationDestination(for: Exercise.self) { someEx in
-                    if(someEx.requiresFormCorrection){ ActiveExerciseWithAssistance(someExercise: someEx)
-                    }
-                    else{
-                        ActiveExerciseView(someExercise: someEx)
-                    }
-                }
+//                .navigationDestination(for: Exercise.self) { someEx in
+//                    if(someEx.requiresFormCorrection){ ActiveExerciseWithAssistance(someExercise: someEx)
+//                    }
+//                    else{
+//                        ActiveExerciseView(someExercise: someEx)
+//                    }
+//                }
                 
             }
         }

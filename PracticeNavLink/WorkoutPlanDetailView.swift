@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct WorkoutPlanDetailView: View {
+    @Binding var currEx: Int
     var somePlan: WorkoutPlan
-    @State var currEx = 0
     var body: some View {
         VStack(){
             Section() {
@@ -25,8 +25,18 @@ struct WorkoutPlanDetailView: View {
             }
             Section {
                 ForEach(somePlan.featuresExercise) { oneExercise in
-                    NavigationLink(value: oneExercise) {
-                        ExerciseCard(exercise: oneExercise)
+//                    NavigationLink(value: oneExercise) {
+//                        ExerciseCard(exercise: oneExercise)
+//                    }
+                    if(oneExercise.requiresFormCorrection){
+                        NavigationLink(value: ExerciseViewRoutes.activeExerciseWithFormCorrection(oneExercise)) {
+                            ExerciseCard(exercise: oneExercise)
+                        }
+                    }
+                    else{
+                        NavigationLink(value: ExerciseViewRoutes.activeExerciseWithoutFormCorrection(oneExercise)) {
+                            ExerciseCard(exercise: oneExercise)
+                        }
                     }
                     
                 }
@@ -41,8 +51,18 @@ struct WorkoutPlanDetailView: View {
 //                    .padding(.horizontal)
             }
             
-            NavigationLink(value: somePlan.featuresExercise[currEx]) {
+//            NavigationLink(value: somePlan.featuresExercise[currEx]) {
+//                //RunningExercise(ongoingEx: $currEx, someExercise: <#T##Exercise#>)
+//                
+//                Text(currEx==0 ? "Start Workout" : "Perform \(somePlan.featuresExercise[currEx].name)")
+//                    .foregroundStyle(.black)
+//                    .padding()
+//                    .background(.gray, in: .rect(cornerRadius: 8))
+//            }
+            
+            NavigationLink(value: ExerciseViewRoutes.runningExercise(somePlan.featuresExercise[currEx])) {
                 //RunningExercise(ongoingEx: $currEx, someExercise: <#T##Exercise#>)
+                
                 Text(currEx==0 ? "Start Workout" : "Perform \(somePlan.featuresExercise[currEx].name)")
                     .foregroundStyle(.black)
                     .padding()
@@ -54,13 +74,15 @@ struct WorkoutPlanDetailView: View {
 
         }
         .navigationTitle(somePlan.name)
-        .navigationDestination(for: Exercise.self) { exercise in
-            RunningExercise(ongoingEx: $currEx, someExercise: exercise)
-        }
+//        .navigationDestination(for: Exercise.self) { exercise in
+//            RunningExercise(ongoingEx: $currEx, someExercise: exercise)
+//        }
     }
 }
 
 #Preview {
+    @Previewable @State var idx = 0
+    
     let somePlan = WorkoutPlan(
         name: "Leg Day Demolition",
         duration: 60,
@@ -71,5 +93,5 @@ struct WorkoutPlanDetailView: View {
             Exercise(name: "Calf Raises", targets: .legs, requiresFormCorrection: false)
         ]
     )
-    WorkoutPlanDetailView(somePlan: somePlan)
+    WorkoutPlanDetailView(currEx:$idx, somePlan: somePlan)
 }

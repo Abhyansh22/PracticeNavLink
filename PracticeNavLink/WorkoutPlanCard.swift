@@ -18,7 +18,8 @@ struct WorkoutPlanCard: View {
             
         }
         .padding()
-        .background(.secondary ,in: .rect(cornerRadius: 16))
+        .foregroundStyle(.black)
+        .background(.gray,in: .rect(cornerRadius: 16))
         .padding(.horizontal, 10)
     }
 }

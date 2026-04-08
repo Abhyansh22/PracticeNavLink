@@ -10,14 +10,17 @@ import SwiftUI
 struct WorkoutPlanDetailView: View {
     var somePlan: WorkoutPlan
     var body: some View {
-        VStack(alignment: .leading){
-            Section {
+        VStack(){
+            Section() {
                 WorkoutPlanCard(onePlan: somePlan)
             } header: {
-                Text("Plan Info")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal)
+                HStack{
+                    Text("Plan Info")
+                        .font(.largeTitle)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal)
+                    Spacer()
+                }
             }
             Section {
                 ForEach(somePlan.featuresExercise) { oneExercise in
@@ -27,11 +30,20 @@ struct WorkoutPlanDetailView: View {
                     
                 }
             } header: {
-                Text("Featured Exercises")
-                    .font(.largeTitle)
-                    .fontWeight(.semibold)
-                    .padding(.horizontal)
+                HStack{
+                    Text("Featured Exercises")
+                        .font(.largeTitle)
+                        .fontWeight(.semibold)
+                        .padding(.horizontal)
+                    Spacer()
+                }
+//                    .padding(.horizontal)
             }
+            
+            Button("Start Workout") {
+                //
+            }
+            .buttonStyle(.borderedProminent)
             
             Spacer()
 

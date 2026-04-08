@@ -21,7 +21,6 @@ struct DashBoardView: View {
                         
                     }
                 }
-                .padding()
                 .navigationTitle("Dashboard")
                 .navigationDestination(for: WorkoutPlan.self) { plan in
                     WorkoutPlanDetailView(somePlan: plan)

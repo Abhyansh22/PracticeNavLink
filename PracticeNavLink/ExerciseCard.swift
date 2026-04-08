@@ -12,12 +12,14 @@ struct ExerciseCard: View {
     var body: some View {
         HStack{
             Text("\(exercise.name)")
+                
                 .font(.title3)
                 .padding()
             Spacer()
             
         }
-        .background(.secondary ,in: .rect(cornerRadius: 16))
+        .foregroundStyle(.black)
+        .background(.gray ,in: .rect(cornerRadius: 16))
         .padding(.horizontal, 10)
     }
 }
